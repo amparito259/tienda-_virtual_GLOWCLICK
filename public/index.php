@@ -1,22 +1,10 @@
 <?php
-$controlador = $_GET['controlador'] ?? 'producto';
-$accion = $_GET['accion'] ?? 'index';
+require_once "../config/database.php";
 
-$nombreControlador = ucfirst($controlador) . 'Controller';
-$archivoControlador = __DIR__ . '/../app/controllers/' . $nombreControlador . '.php';
+$db = new Database();
+$conexion = $db->conectar();
 
-if (file_exists($archivoControlador)) {
-    require_once $archivoControlador;
-    if (class_exists($nombreControlador)) {
-        $objeto = new $nombreControlador();
-        if (method_exists($objeto, $accion)) {
-            $objeto->$accion();
-        } else {
-            echo "Acción no encontrada";
-        }
-    } else {
-        echo "Clase no encontrada";
-    }
-} else {
-    echo "Página no encontrada";
+if ($conexion) {
+    echo "Conexión exitosa a la base de datos de GLOWCLICK";
 }
+?>
