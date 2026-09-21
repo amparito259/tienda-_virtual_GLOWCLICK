@@ -1,41 +1,50 @@
 <?php
+require_once __DIR__ . '/../../config/Database.php';
+
 class Categoria {
-    private $conn;
-    private $table = "categorias";
+    private $connection;
 
-    public function __construct($db) {
-        $this->conn = $db;
+    public function __construct() {
+        try {
+            $database = new Database();
+            $this->connection = $database->connect();
+        } catch(PDOException $e) {
+            echo "Error en la conexion de Categoria: " . $e->getMessage();
+        }
     }
 
-    public function obtenerTodos() {
-        $query = "SELECT * FROM " . $this->table;
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function getAll() {
+        try {
+            $sql = "SELECT id, nombre, descripcion FROM categorias";
+            $consulta = $this->connection->query($sql);
+            if ($consulta) {
+                return $consulta->fetchAll(PDO::FETCH_ASSOC);
+            } else {
+                return [];
+            }
+        } catch(PDOException $e) {
+            echo "Error viene de la categoria metodo getAll:" . $e->getMessage();
+        }
     }
 
-    public function obtenerPorId($id) {
-        $query = "SELECT * FROM " . $this->table . " WHERE id = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    public function crear($nombre) {
-        $query = "INSERT INTO " . $this->table . " (nombre) VALUES (?)";
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$nombre]);
-    }
-
-    public function actualizar($id, $nombre) {
-        $query = "UPDATE " . $this->table . " SET nombre = ? WHERE id = ?";
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$nombre, $id]);
-    }
-
-    public function eliminar($id) {
-        $query = "DELETE FROM " . $this->table . " WHERE id = ?";
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$id]);
+    public function getById($id) {
+        try {
+            $sql = "SELECT * FROM categorias WHERE id = :id";
+            $consulta = $this->connection->prepare($sql);
+            $consulta->bindParam(':id', $id, PDO::PARAM_INT);
+            if ($consulta->execute()) {
+                $resultado = $consulta->fetch(PDO::FETCH_ASSOC);
+                if ($resultado) {
+                    return $resultado;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } catch(PDOException $e) {
+            echo "Error viene de la categoria metodo getById:" . $e->getMessage();
+        }
     }
 }
+?>

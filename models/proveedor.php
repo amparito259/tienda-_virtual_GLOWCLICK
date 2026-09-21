@@ -1,13 +1,13 @@
 <?php
-class Cliente {
+class Proveedor {
     private $conn;
-    private $table = "clientes";
+    private $table = "proveedores";
 
     public function __construct($db) {
         $this->conn = $db;
     }
 
-    public function obtenerTodos() {
+    public function getAll() {
         try {
             $query = "SELECT * FROM " . $this->table;
             $stmt = $this->conn->prepare($query);
@@ -17,11 +17,11 @@ class Cliente {
                 return [];
             }
         } catch(PDOException $e) {
-            echo "Error en Cliente obtenerTodos: " . $e->getMessage();
+            echo "Error en Proveedor getAll: " . $e->getMessage();
         }
     }
 
-    public function obtenerPorId($id) {
+    public function getById($id) {
         try {
             $query = "SELECT * FROM " . $this->table . " WHERE id = ?";
             $stmt = $this->conn->prepare($query);
@@ -36,36 +36,36 @@ class Cliente {
                 return false;
             }
         } catch(PDOException $e) {
-            echo "Error en Cliente obtenerPorId: " . $e->getMessage();
+            echo "Error en Proveedor getById: " . $e->getMessage();
         }
     }
 
-    public function crear($nombre, $email, $telefono) {
+    public function crear($nombre, $contacto, $telefono, $email) {
         try {
-            $query = "INSERT INTO " . $this->table . " (nombre, email, telefono) VALUES (?, ?, ?)";
+            $query = "INSERT INTO " . $this->table . " (nombre, contacto, telefono, email) VALUES (?, ?, ?, ?)";
             $stmt = $this->conn->prepare($query);
-            if ($stmt->execute([$nombre, $email, $telefono])) {
+            if ($stmt->execute([$nombre, $contacto, $telefono, $email])) {
                 return true;
             } else {
                 return false;
             }
         } catch(PDOException $e) {
-            echo "Error en Cliente crear: " . $e->getMessage();
+            echo "Error en Proveedor crear: " . $e->getMessage();
             return false;
         }
     }
 
-    public function actualizar($id, $nombre, $email, $telefono) {
+    public function actualizar($id, $nombre, $contacto, $telefono, $email) {
         try {
-            $query = "UPDATE " . $this->table . " SET nombre = ?, email = ?, telefono = ? WHERE id = ?";
+            $query = "UPDATE " . $this->table . " SET nombre = ?, contacto = ?, telefono = ?, email = ? WHERE id = ?";
             $stmt = $this->conn->prepare($query);
-            if ($stmt->execute([$nombre, $email, $telefono, $id])) {
+            if ($stmt->execute([$nombre, $contacto, $telefono, $email, $id])) {
                 return true;
             } else {
                 return false;
             }
         } catch(PDOException $e) {
-            echo "Error en Cliente actualizar: " . $e->getMessage();
+            echo "Error en Proveedor actualizar: " . $e->getMessage();
             return false;
         }
     }
@@ -80,7 +80,7 @@ class Cliente {
                 return false;
             }
         } catch(PDOException $e) {
-            echo "Error en Cliente eliminar: " . $e->getMessage();
+            echo "Error en Proveedor eliminar: " . $e->getMessage();
             return false;
         }
     }

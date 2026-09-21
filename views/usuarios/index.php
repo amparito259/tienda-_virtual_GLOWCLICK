@@ -8,20 +8,26 @@
 <body>
     <h1>Usuarios</h1>
     <a href="index.php?controlador=usuario&accion=crear" class="btn btn-primary">Nuevo Usuario</a>
+    <a href="index.php?controlador=producto&accion=index">Ir a Productos</a>
     <table>
         <tr><th>ID</th><th>Nombre</th><th>Email</th><th>Rol</th><th>Acciones</th></tr>
-        <?php foreach ($usuarios as $u): ?>
-        <tr>
-            <td><?= $u['id'] ?></td>
-            <td><?= htmlspecialchars($u['nombre']) ?></td>
-            <td><?= htmlspecialchars($u['email']) ?></td>
-            <td><?= htmlspecialchars($u['rol']) ?></td>
-            <td>
-                <a href="index.php?controlador=usuario&accion=editar&id=<?= $u['id'] ?>">Editar</a>
-                <a href="index.php?controlador=usuario&accion=eliminar&id=<?= $u['id'] ?>">Eliminar</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
+        <?php if (!empty($usuarios)): ?>
+            <?php foreach ($usuarios as $usu): ?>
+            <tr>
+                <td><?= $usu['id'] ?></td>
+                <td><?= htmlspecialchars($usu['nombre']) ?></td>
+                <td><?= htmlspecialchars($usu['email']) ?></td>
+                <td><?= htmlspecialchars($usu['rol']) ?></td>
+                <td>
+                    <a href="index.php?controlador=usuario&accion=editar&id=<?= $usu['id'] ?>">Editar</a>
+                    <a href="index.php?controlador=usuario&accion=eliminar&id=<?= $usu['id'] ?>">Eliminar</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr><td colspan="5">No hay usuarios registrados.</td></tr>
+        <?php endif; ?>
     </table>
+    <script src="js/script.js"></script>
 </body>
 </html>

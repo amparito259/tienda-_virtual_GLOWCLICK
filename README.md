@@ -7,3 +7,5 @@ GLOWCLICK es una tienda online especializada en la venta de productos de maquill
 Este sistema permite gestionar de manera interna el inventario de cosméticos (labiales, polvos, rubores, paletas de sombras, etc.), el registro de clientes, el control de usuarios del sistema y el registro detallado de las ventas realizadas.
 
 Está estructurado bajo el patrón MVC para garantizar un código modular, mantenible y escalable.
+### estoy Agregando try y catch y if y else.
+no tenia proveedor y lo agregue. pero no lo he podido solucionar tengo un error y me quede haci..

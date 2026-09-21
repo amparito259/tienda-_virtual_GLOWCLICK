@@ -2,17 +2,19 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Crear Cliente - GLOWCLICK</title>
+    <title>Crear Proveedor - GLOWCLICK</title>
 </head>
 <body>
-    <h1>Nuevo Cliente</h1>
-    <form action="index.php?controlador=cliente&accion=crear" method="POST">
+    <h1>Nuevo Proveedor</h1>
+    <form action="index.php?controlador=proveedor&accion=crear" method="POST">
         <label>Nombre:</label>
         <input type="text" name="nombre" required>
-        <label>Email:</label>
-        <input type="email" name="email" required>
+        <label>Contacto:</label>
+        <input type="text" name="contacto" required>
         <label>Teléfono:</label>
         <input type="text" name="telefono" required>
+        <label>Email:</label>
+        <input type="email" name="email" required>
         <button type="submit">Guardar</button>
     </form>
 </body>

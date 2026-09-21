@@ -8,20 +8,26 @@
 <body>
     <h1>Clientes</h1>
     <a href="index.php?controlador=cliente&accion=crear" class="btn btn-primary">Nuevo Cliente</a>
+    <a href="index.php?controlador=producto&accion=index">Ir a Productos</a>
     <table>
         <tr><th>ID</th><th>Nombre</th><th>Email</th><th>Teléfono</th><th>Acciones</th></tr>
-        <?php foreach ($clientes as $c): ?>
-        <tr>
-            <td><?= $c['id'] ?></td>
-            <td><?= htmlspecialchars($c['nombre']) ?></td>
-            <td><?= htmlspecialchars($c['email']) ?></td>
-            <td><?= htmlspecialchars($c['telefono']) ?></td>
-            <td>
-                <a href="index.php?controlador=cliente&accion=editar&id=<?= $c['id'] ?>">Editar</a>
-                <a href="index.php?controlador=cliente&accion=eliminar&id=<?= $c['id'] ?>">Eliminar</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
+        <?php if (!empty($clientes)): ?>
+            <?php foreach ($clientes as $cli): ?>
+            <tr>
+                <td><?= $cli['id'] ?></td>
+                <td><?= htmlspecialchars($cli['nombre']) ?></td>
+                <td><?= htmlspecialchars($cli['email']) ?></td>
+                <td><?= htmlspecialchars($cli['telefono']) ?></td>
+                <td>
+                    <a href="index.php?controlador=cliente&accion=editar&id=<?= $cli['id'] ?>">Editar</a>
+                    <a href="index.php?controlador=cliente&accion=eliminar&id=<?= $cli['id'] ?>">Eliminar</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr><td colspan="5">No hay clientes registrados en GLOWCLICK.</td></tr>
+        <?php endif; ?>
     </table>
+    <script src="js/script.js"></script>
 </body>
 </html>

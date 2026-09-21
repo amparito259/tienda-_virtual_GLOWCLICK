@@ -2,28 +2,27 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Detalle de Venta</title>
+    <title>Detalle de Venta - GLOWCLICK</title>
     <link rel="stylesheet" href="css/estilos.css">
 </head>
 <body>
-    <h1>Detalle de Venta #<?= $venta['id'] ?></h1>
-    <p><strong>Cliente:</strong> <?= htmlspecialchars($venta['cliente']) ?></p>
-    <p><strong>Fecha:</strong> <?= $venta['fecha'] ?></p>
-    <p><strong>Total:</strong> $<?= number_format($venta['total'], 2) ?></p>
-
-    <h3>Productos Vendidos</h3>
+    <h1>Detalle de la Venta</h1>
+    <a href="index.php?controlador=venta&accion=index">Volver a Ventas</a>
     <table>
-        <tr><th>Producto</th><th>Cantidad</th><th>Precio Unitario</th><th>Subtotal</th></tr>
-        <?php foreach ($detalles as $d): ?>
-        <tr>
-            <td><?= htmlspecialchars($d['producto']) ?></td>
-            <td><?= $d['cantidad'] ?></td>
-            <td>$<?= number_format($d['precio_unitario'], 2) ?></td>
-            <td>$<?= number_format($d['cantidad'] * $d['precio_unitario'], 2) ?></td>
-        </tr>
-        <?php endforeach; ?>
+        <tr><th>ID Detalle</th><th>Producto</th><th>Cantidad</th><th>Precio Unitario</th></tr>
+        <?php if (!empty($detalles)): ?>
+            <?php foreach ($detalles as $det): ?>
+            <tr>
+                <td><?= $det['id'] ?></td>
+                <td><?= htmlspecialchars($det['producto']) ?></td>
+                <td><?= $det['cantidad'] ?></td>
+                <td>$<?= $det['precio_unitario'] ?></td>
+            </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr><td colspan="4">No hay detalles para esta venta.</td></tr>
+        <?php endif; ?>
     </table>
-    <br>
-    <a href="index.php?controlador=venta&accion=index">Volver</a>
+    <script src="js/script.js"></script>
 </body>
 </html>

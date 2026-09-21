@@ -1,41 +1,64 @@
 <?php
-class Producto {
+
+require_once __DIR__ . "/../../config/Database.php";
+
+class Producto
+{
     private $conn;
-    private $table = "productos";
+    private $table = "producto";
 
-    public function __construct($db) {
-        $this->conn = $db;
+    public function __construct($db = null)
+    {
+        if ($db) {
+            $this->conn = $db;
+        } else {
+            $database = new Database();
+            $this->conn = $database->connect();
+        }
     }
 
-    public function obtenerTodos() {
-        $query = "SELECT p.*, c.nombre as categoria FROM " . $this->table . " p LEFT JOIN categorias c ON p.categoria_id = c.id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    public function getAll()
+    {
+        try {
+
+            $query = "SELECT 
+                        p.id,
+                        p.nombre,
+                        p.precio,
+                        p.id_categoria,
+                        c.nombre AS categoria
+                      FROM producto p
+                      LEFT JOIN categoria c 
+                      ON p.id_categoria = c.id_categoria";
+
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute();
+
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+
+            echo "Error en Producto getAll: " . $e->getMessage();
+            return [];
+        }
     }
 
-    public function obtenerPorId($id) {
-        $query = "SELECT * FROM " . $this->table . " WHERE id = ?";
-        $stmt = $this->conn->prepare($query);
-        $stmt->execute([$id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
+    public function getById($id)
+    {
+        try {
 
-    public function crear($nombre, $precio, $stock, $categoria_id) {
-        $query = "INSERT INTO " . $this->table . " (nombre, precio, stock, categoria_id) VALUES (?, ?, ?, ?)";
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$nombre, $precio, $stock, $categoria_id]);
-    }
+            $query = "SELECT * FROM producto WHERE id = ?";
 
-    public function actualizar($id, $nombre, $precio, $stock, $categoria_id) {
-        $query = "UPDATE " . $this->table . " SET nombre = ?, precio = ?, stock = ?, categoria_id = ? WHERE id = ?";
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$nombre, $precio, $stock, $categoria_id, $id]);
-    }
+            $stmt = $this->conn->prepare($query);
+            $stmt->execute([$id]);
 
-    public function eliminar($id) {
-        $query = "DELETE FROM " . $this->table . " WHERE id = ?";
-        $stmt = $this->conn->prepare($query);
-        return $stmt->execute([$id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+
+        } catch (PDOException $e) {
+
+            echo "Error en Producto getById: " . $e->getMessage();
+            return false;
+        }
     }
 }
+?>
