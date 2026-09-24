@@ -1,21 +1,16 @@
 <?php
-require_once __DIR__ . "/../models/clientes.php";
 
-class ClientesController {
+require_once __DIR__ . "/../../models/Cliente.php";
+
+class ClinteController {
     public function index(){
         try {
-            $clienteModel = new clientes();
-            $clientes = $clienteModel->getAll();
+            $Clinte = new Cliente();
+            $Clinte = $Clinte->getAll();
 
-            if ($clientes) {
-                require_once __DIR__ . "/../views/clientes/index.php";
-            } else {
-                $clientes = [];
-                require_once __DIR__ . "/../views/clientes/index.php";
-            }
+            require_once __DIR__ . "/../../views/Clinte/index.php";
         } catch (Exception $e) {
-            echo "Error en ClientesController: " . $e->getMessage();
+            echo "Error en el controlador de categoria" .$e->getMessage();
         }
     }
 }
-?>

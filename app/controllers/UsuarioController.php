@@ -1,23 +1,16 @@
 <?php
-require_once __DIR__ . '/../models/usuario.php';
+
+require_once __DIR__ . "/../../models/Usuario.php";
 
 class UsuarioController {
-    public function index() {
+    public function index(){
         try {
-            $usuarioModel = new usuario();
-            $usuarios = $usuarioModel->getAll();
-            $usuarioConsultado = $usuarioModel->getAll();
+            $Usuario = new Usuario();
+            $Usuario = $Usuario->getAll();
 
-            if ($usuarios && $usuarioConsultado) {
-                require_once __DIR__ . '/../views/usuario/index.php';
-            } else {
-                $usuarios = [];
-                $usuarioConsultado = [];
-                require_once __DIR__ . '/../views/usuario/index.php';
-            }
+            require_once __DIR__ . "/../../views/Usuario/index.php";
         } catch (Exception $e) {
-            echo "Error en UsuarioController: " . $e->getMessage();
+            echo "Error en el controlador de Usuario" .$e->getMessage();
         }
     }
 }
-?>

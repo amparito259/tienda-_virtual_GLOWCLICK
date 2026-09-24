@@ -9,3 +9,5 @@ Este sistema permite gestionar de manera interna el inventario de cosméticos (l
 Está estructurado bajo el patrón MVC para garantizar un código modular, mantenible y escalable.
 ### estoy Agregando try y catch y if y else.
 no tenia proveedor y lo agregue. pero no lo he podido solucionar tengo un error y me quede haci..
+
+tego un error pero lo voy a solucionar..

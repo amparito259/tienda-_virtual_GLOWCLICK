@@ -1,23 +1,16 @@
 <?php
 
-require_once __DIR__ . "/../models/producto.php";
+require_once __DIR__ . "/../../models/producto.php";
 
-class ProductoController
-{
-    public function index()
-    {
+class ProductoController {
+    public function index(){
         try {
+            $producto = new Producto();
+            $productos = $producto->getAll();
 
-            $productoModel = new Producto();
-
-            $productos = $productoModel->getAll();
-
-            require_once __DIR__ . "/../views/producto/index.php";
-
+            require_once __DIR__ . "/../../views/productos/index.php";
         } catch (Exception $e) {
-
-            echo "Error en ProductoController: " . $e->getMessage();
+            echo "Error en el controlador de productos" .$e->getMessage();
         }
     }
 }
-?>

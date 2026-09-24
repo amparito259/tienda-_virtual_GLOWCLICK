@@ -1,21 +1,16 @@
 <?php
-require_once __DIR__ . '/../models/venta.php';
+
+require_once __DIR__ . "/../../models/Venta.php";
 
 class VentaController {
-    public function index() {
+    public function index(){
         try {
-            $ventaModel = new Venta();
-            $ventas = $ventaModel->getAll();
-            
-            if ($ventas) {
-                require_once __DIR__ . '/../views/venta/index.php';
-            } else {
-                $ventas = [];
-                require_once __DIR__ . '/../views/venta/index.php';
-            }
+            $Venta = new Venta ();
+            $Venta = $Venta->getAll();
+
+            require_once __DIR__ . "/../../views/Venta/index.php";
         } catch (Exception $e) {
-            echo "Error en VentaController: " . $e->getMessage();
+            echo "Error en el controlador de Venta" .$e->getMessage();
         }
     }
 }
-?>

@@ -25,7 +25,7 @@
             </tr>
             <?php endforeach; ?>
         <?php else: ?>
-            <tr><td colspan="5">No hay clientes registrados en GLOWCLICK.</td></tr>
+            <tr><td colspan="5"></td></tr>
         <?php endif; ?>
     </table>
     <script src="js/script.js"></script>

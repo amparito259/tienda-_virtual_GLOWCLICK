@@ -1,21 +1,16 @@
 <?php
-require_once __DIR__ . '/../models/categoria.php';
+
+require_once __DIR__ . "/../../models/categoria.php";
 
 class CategoriaController {
-    public function index() {
+    public function index(){
         try {
-            $categoriaModel = new Categoria();
-            $categorias = $categoriaModel->getAll();
+            $categoria = new Categoria();
+            $categoria = $categoria->getAll();
 
-            if ($categorias) {
-                require_once __DIR__ . "/../views/categoria/index.php";
-            } else {
-                $categorias = [];
-                require_once __DIR__ . "/../views/categoria/index.php";
-            }
+            require_once __DIR__ . "/../../views/categoria/index.php";
         } catch (Exception $e) {
-            echo "Error en CategoriaController: " . $e->getMessage();
+            echo "Error en el controlador de categoria" .$e->getMessage();
         }
     }
 }
-?>
